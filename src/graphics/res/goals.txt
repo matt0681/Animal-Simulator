@@ -1,0 +1,29 @@
+/*
+
+Goals.
+DO NOT DO ANYTHING ELSE BUT THESE. THEY WILL HELP. TRUST ME.
+1. Simple GUI to view program.
+    a. Have a pause and play button to start and stop the simulation.
+
+2. Comment everything.
+
+3. Chicken movements.
+    a. Literally just move one square in a random direction.
+    b. Weight calculations.
+    c. Use a path finding algorithm to find plant entities.
+
+4. Plants living.
+    a. Have a seed value and should grow.
+
+6. Try and balance the chicken and plants so it is realistic.
+
+7. Map generation.
+
+8. Bugs?
+
+
+
+3. Chicken Movements.
+4. Pause and Play button.
+
+*/
