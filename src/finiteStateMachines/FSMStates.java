@@ -10,5 +10,6 @@ public class FSMStates {
             
             IDLE = 0,
             FORAGE = 1,
-            DIE = 2;
+            EAT = 2,
+            DIE = 3;
 }

@@ -40,9 +40,12 @@ public class SimulationPanel extends JPanel implements Runnable {
     private Thread thread;
     private boolean running = true;
     private boolean paused = false;
+    private int fps = 30;
+    
     private BufferedImage image;
+    private BufferedImage imageBack;
     private Graphics2D g;
-    private int fps = 1000;
+    private Graphics2D g2;
 
     private MapManager world;
     private UserEntity user;
@@ -63,32 +66,12 @@ public class SimulationPanel extends JPanel implements Runnable {
             thread.start();
         }
     }
-
+    
+    
     // Because we use a new thread for the simulation, the run method contains
     // the event loop.
     @Override
     public void run() {
-
-        // We use key bindings instead of listeners as bindings dont require
-        // focus on a certain panel or component.
-        // We add the UserEntity's moveEntity function and specify which direction
-        // as a parameter.
-        addKeyBinding(this, KeyEvent.VK_UP, "Up", (evt) -> {
-            UserEntity.moveEntity(0);
-        });
-        addKeyBinding(this, KeyEvent.VK_RIGHT, "Right", (evt) -> {
-            UserEntity.moveEntity(1);
-        });
-        addKeyBinding(this, KeyEvent.VK_DOWN, "Down", (evt) -> {
-            UserEntity.moveEntity(2);
-        });
-        addKeyBinding(this, KeyEvent.VK_LEFT, "Left", (evt) -> {
-            UserEntity.moveEntity(3);
-        });
-        addKeyBinding(this, KeyEvent.VK_SPACE, "Space", (evt) -> {
-            paused = paused ? false : true;
-        });
-
         // The entire GUI is a Graphics2D component g, which is taken from a blank image.
         // Throughout the code, this g variable will be manipulated to display graphics.
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -104,24 +87,52 @@ public class SimulationPanel extends JPanel implements Runnable {
         // The backend classes such as a Map, MapManager, MapMaker and UserEntity are initialized.
         world = new MapManager(MapMaker.createTestMap(SIZE));
         user = new UserEntity();
-
+        
+        // We use key bindings instead of listeners as bindings dont require
+        // focus on a certain panel or component.
+        // We add the UserEntity's moveEntity function and specify which direction
+        // as a parameter.
+        addKeyBinding(this, KeyEvent.VK_UP, "Up", (evt) -> {
+            user.moveEntity(0);
+        });
+        addKeyBinding(this, KeyEvent.VK_RIGHT, "Right", (evt) -> {
+            user.moveEntity(1);
+        });
+        addKeyBinding(this, KeyEvent.VK_DOWN, "Down", (evt) -> {
+            user.moveEntity(2);
+        });
+        addKeyBinding(this, KeyEvent.VK_LEFT, "Left", (evt) -> {
+            user.moveEntity(3);
+        });
+        addKeyBinding(this, KeyEvent.VK_SPACE, "Space", (evt) -> {
+            paused = paused ? false : true;
+        });
+        
+        int temp = 0;
+        
         // The Event Loop. Will continue forever at a constant tickrate(framerate) until closed.
         while (running) {
             startTime = System.nanoTime();
             g.setColor(new Color(196, 182, 179));
             g.fillRect(0, 0, WIDTH, HEIGHT);
 
-            // When paused is true, the game doesn't update.
-            if(!paused){
-                // These commands 'update' the GUI with new data every tick of the loop.
-                world.updateEntities(world);
+            
+            if(temp == 30){
+                // When paused is true, the game doesn't update.
+                if(!paused){
+                    // These commands 'update' the GUI with new data every tick of the loop.
+                    world.updateEntities(world);
+                }
+                temp = 0;
             }
+            temp++;
             
             g = world.drawGround(g);
             g = world.drawEntities(g);
-            g = user.drawUserEntity(g);
             Information.update();
             g = Information.draw(g);
+            g = user.drawUserEntity(g);
+            
             mainDraw();
 
             
@@ -142,6 +153,7 @@ public class SimulationPanel extends JPanel implements Runnable {
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
     }
+    
 
     // Creates the Key Bindings. Very advanced function, not my own work. Used a tutorial for this.
     private void addKeyBinding(JComponent comp, int keyCode, String id, ActionListener actionListener) {

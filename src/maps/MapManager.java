@@ -4,6 +4,7 @@ import entities.Entity;
 import states.BirdStates;
 import states.GrassStates;
 import graphics.SpriteHandler;
+import graphics.UserEntity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class MapManager {
                     if(!isDead){
                         if(text.equals("b")) {
                             BirdStates temp = (BirdStates) map.getEntityLayer().get(i).get(j).getComponent("FSM").getValue();
-                            temp.update(i, m);
+                            temp.update(i, j, m);
                         } else if (text.equals(";")){
                             GrassStates temp = (GrassStates) map.getEntityLayer().get(i).get(j).getComponent("FSM").getValue();
                             temp.update();

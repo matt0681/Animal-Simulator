@@ -49,6 +49,7 @@ public class MapMaker {
             groundLayer[i] = ground;
         }
 
+        
         int birdPos = 39;
         Entity bird = new Entity()
             .addComponent("Name", new Component().setvalue(UniqueNames.getGroundName(Names.BIRD)))

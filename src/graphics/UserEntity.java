@@ -26,6 +26,8 @@ public class UserEntity {
     // manageUserEntity method draws the user cursor sprite onto the GUI.
     public static Graphics2D drawUserEntity(Graphics2D g){
        
+        
+        
         g.drawImage(sprites.getSpriteImage(Sprites.USER), userX, userY, null);
         
         return g; 
