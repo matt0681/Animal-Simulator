@@ -1,0 +1,36 @@
+
+[Tribes Modeling v0.1]
+Modeling the interactions between two tribes of people.
+
+
+[Tribes]
+A tribe is a group of people who live together and share common values and ideas. Tribes consist of a population, a table of beliefs, a table of tribe sentiments, and various logic for interactions.  A unique ID for a tribe can be generated from all it's data using prime factorization.
+
+(Population) A table containing the amount of children and adults in the tribe. It is also split between male and female numbers.
+
+(Beliefs) A table containing numerical values for each aspect of a tribe's belief system.
+Ex.
+	religion | science | food | appearance
+	---------------------------------------
+	  0.456  |  0.112  | 0.5  |  0.7879  
+	  
+(Sentiments) A table containing a tribe's view of other tribes as well as a tribe's view of how other tribes view them.
+Ex.
+	 Tribe  |    sentiment   |  reverse sentiment
+	------------------------------------------------
+	  'a'	|  r:  -0.421	 |  r:  
+			|  s:  0.689     |  s: 
+	        |  f:  -0.113	 |  etc.
+	        |  a:  -0.332	 |  ...
+	------------------------------------------------
+	  'b'	|  r:  -0.421	 |  etc. 
+			|  s:  0.689	 |  ...
+	        |  f:  -0.113	 |
+	        |  a:  -0.332 	 |
+
+	
+[Interactions]
+The interactions between different tribes can consist of things such as attack, trade, exchange, meeting, migrations, etc. Each tribe has an algorithm on how to handle each interaction. The algorithms make use of a tribe's data as well as interaction 'meta data', or data that comes with the announcement of an interaction. The algorithms 'decide' what to do by engaging other interactions. 
+
+
+
